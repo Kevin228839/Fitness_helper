@@ -34,7 +34,7 @@ const Home = () => {
                     return (
                       <Card w="275px" h="250px" key={item.food_id}>
                         <CardBody>
-                            <Image width="70px" height="70px" src="https://myawsfoodbucket01.s3.ap-southeast-2.amazonaws.com/weightlifter.png"/>
+                            <Image width="70px" height="70px" src={item.image_url}/>
                           <Heading mt="10px" mb="5px" size="md">{item.food_name}</Heading>
                           <Text>carbonhydrate : {item.carbonhydrate}</Text>
                           <Text>protein : {item.protein}</Text>
