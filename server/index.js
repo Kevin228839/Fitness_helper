@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const foodInfoRouter = require('./routers/foodInfoRouter');
+const cors = require('cors');
 
+app.use(cors());
 app.use('/', foodInfoRouter);
 
 // error handler should put as the last middleware
