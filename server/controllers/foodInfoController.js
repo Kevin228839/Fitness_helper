@@ -3,7 +3,7 @@ const foodInfoModel = require('../models/foodInfoModel');
 const getFoodInfo = async (req, res, next) => {
   try {
     // [data, buf] => what query actually returns. We only need data here
-    const [response] = await foodInfoModel.getFoodInfoModel(req.query.page);
+    const [response] = await foodInfoModel.getFoodInfoModel();
     res.status(200).json({ message: response });
   } catch (err) {
     next(err);

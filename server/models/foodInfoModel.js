@@ -1,11 +1,11 @@
 const { pool } = require('./mysqlconnection');
 require('dotenv').config();
 
-const getFoodInfoModel = async (page = 0) => {
+const getFoodInfoModel = async () => {
   const conn = await pool.getConnection();
   try {
     const response = await conn.query(
-      'select food_id, food_name, carbonhydrate, protein, fat, calory, image_url from food_info, image_info where food_info.image_id=image_info.image_id limit ?, ?', [page * parseInt(process.env.listPerPage), parseInt(process.env.listPerPage)]
+      'select food_id, food_name, carbonhydrate, protein, fat, calory, image_url from food_info, image_info where food_info.image_id=image_info.image_id '
     );
     return response;
   } catch (err) {
