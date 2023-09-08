@@ -1,13 +1,15 @@
 import { useEffect, useReducer } from 'react';
-import { INIITIAL_STATE, homeReducer } from './Reducer/homeReducer';
-import { Box, Flex, Center, Spinner, Card, CardBody, Heading, Text, Image, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody } from '@chakra-ui/react';
+import { INIITIAL_STATE, HomeReducer } from './Reducer/HomeReducer';
+import { HomeContext } from './Context';
+import { Box, Flex, Center, Spinner, Card, CardBody, Heading, Text, Image } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import CalculateButton from './CalculateButton';
 import _ from 'lodash';
 import api from '../api';
 
 const Home = () => {
-  const [state, dispatch] = useReducer(homeReducer, INIITIAL_STATE);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [state, dispatch] = useReducer(HomeReducer, INIITIAL_STATE);
+
   useEffect(() => {
     const fetchData = async () => {
       let message = await api.getFoodList();
@@ -91,36 +93,9 @@ const Home = () => {
             })
           }
         </Box>
-
-        <Center mb="50px">
-          <Button onClick={onOpen} colorScheme="blue" size="lg">Calculate</Button>
-          <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader color="#2C5282">Result</ModalHeader>
-          <ModalBody>
-            <Text fontSize="xl">
-              carbonhydrate: {Math.abs(state.calculateResult.carbonhydrate).toFixed(2)}
-            </Text>
-            <Text fontSize="xl">
-              protein: {Math.abs(state.calculateResult.protein).toFixed(2)}
-            </Text>
-            <Text fontSize="xl">
-              fat: {Math.abs(state.calculateResult.fat).toFixed(2)}
-            </Text>
-            <Text fontSize="xl">
-              calory: {Math.abs(state.calculateResult.calory).toFixed(2)}
-            </Text>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-        </Center>
+        <HomeContext.Provider value={{ homeState: state, homeDispatch: dispatch }}>
+          <CalculateButton />
+        </HomeContext.Provider>
       </>
     );
   }

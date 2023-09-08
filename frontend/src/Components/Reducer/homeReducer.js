@@ -9,7 +9,7 @@ export const INIITIAL_STATE = {
   }
 };
 
-export const homeReducer = (state, action) => { // action = {type, payload}
+export const HomeReducer = (state, action) => { // action = {type, payload}
   switch (action.type) {
     case 'UPDATE_DATA':
       return { ...state, data: action.payload }; // ...state -> keep last state
