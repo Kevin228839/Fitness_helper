@@ -19,7 +19,7 @@ const Home = () => {
     fetchData();
   }, []);
 
-  if (state.data === []) {
+  if (Object.keys(state.data).length === 0) {
     return (
       <Center m="100px">
           <Spinner size='xl' />

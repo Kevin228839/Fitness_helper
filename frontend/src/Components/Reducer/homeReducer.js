@@ -1,5 +1,5 @@
 export const INIITIAL_STATE = {
-  data: [],
+  data: {},
   foodNumber: {},
   calculateResult: {
     carbonhydrate: 0,
