@@ -1,4 +1,5 @@
 import { Flex, Spacer, Box, Divider, Image } from '@chakra-ui/react';
+import LoginButton from './LoginButton';
 
 const Header = () => {
   return (
@@ -9,7 +10,7 @@ const Header = () => {
         </Box>
         <Spacer />
         <Box w="20%" display="flex" alignItems="center" justifyContent="end" pr="80px">
-          <Image src="https://myawsfoodbucket01.s3.ap-southeast-2.amazonaws.com/user.png" w="40px" h="40px"/>
+          <LoginButton />
         </Box>
       </Flex>
       <Divider />
