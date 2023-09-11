@@ -5,7 +5,6 @@ require('dotenv').config();
 
 const handleGoogleOauth = async (req, res, next) => {
   try {
-    console.log(req.cookies);
     // get the code
     const code = req.query.code;
     // get id_token and access_token with the code
