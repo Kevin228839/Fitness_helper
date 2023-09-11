@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import { INIITIAL_STATE, HomeReducer } from './Reducer/HomeReducer';
+import { HOME_INIITIAL_STATE, HomeReducer } from './Reducer/HomeReducer';
 import { HomeContext } from './Context';
 import { Box, Flex, Center, Spinner, Card, CardBody, Heading, Text, Image } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
@@ -8,7 +8,7 @@ import _ from 'lodash';
 import api from '../api';
 
 const Home = () => {
-  const [state, dispatch] = useReducer(HomeReducer, INIITIAL_STATE);
+  const [state, dispatch] = useReducer(HomeReducer, HOME_INIITIAL_STATE);
 
   useEffect(() => {
     const fetchData = async () => {

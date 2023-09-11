@@ -1,4 +1,4 @@
-export const INIITIAL_STATE = {
+export const HOME_INIITIAL_STATE = {
   data: {},
   foodNumber: {},
   calculateResult: {

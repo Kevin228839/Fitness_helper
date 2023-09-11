@@ -20,7 +20,7 @@ const handleGoogleOauth = async (req, res, next) => {
       const infoToken = jwt.sign({ email: userData.email, status: 'login' }, process.env.jwt_private_key);
       res.cookie('jwt_access_fitness_helper', accessToken, { httpOnly: true, maxAge: 60 * 60 * 1000 }); // maxAge unit: millisecond
       res.cookie('jwt_info_fitness_helper', infoToken, { maxAge: 60 * 60 * 1000 });
-      res.redirect('http://localhost:3000');
+      res.redirect(process.env.frontend_origin);
     } else {
       res.status(400).json({ message: 'OAuth: unverified email' });
     }

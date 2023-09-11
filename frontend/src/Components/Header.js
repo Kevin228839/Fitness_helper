@@ -1,7 +1,13 @@
 import { Flex, Spacer, Box, Divider, Image } from '@chakra-ui/react';
 import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+import { useContext } from 'react';
+import { CookieContext } from './Context';
 
 const Header = () => {
+  const cookieContext = useContext(CookieContext);
+  const cookies = cookieContext.cookieState.cookies;
+
   return (
     <>
       <Flex bg="WhiteAlpha 200" w="100%" h="80px">
@@ -10,7 +16,7 @@ const Header = () => {
         </Box>
         <Spacer />
         <Box w="20%" display="flex" alignItems="center" justifyContent="end" pr="80px">
-          <LoginButton />
+          {cookies.jwt_info_fitness_helper ? <LogoutButton /> : <LoginButton />}
         </Box>
       </Flex>
       <Divider />
