@@ -9,7 +9,7 @@ const getFoodInfoModel = async () => {
     );
     return response;
   } catch (err) {
-    console.log('Get food info error!');
+    console.error('Get food info error!');
     throw err;
   } finally {
     conn.release();
@@ -24,7 +24,7 @@ const getFoodDetailModel = async (foodid = 1) => {
     );
     return response;
   } catch (err) {
-    console.log('Get food detail error!');
+    console.error('Get food detail error!');
     throw err;
   } finally {
     conn.release();

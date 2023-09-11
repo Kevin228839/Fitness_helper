@@ -2,10 +2,14 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const foodInfoRouter = require('./routers/foodInfoRouter');
+const oauthRotuer = require('./routers/oauthRotuer');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 app.use(cors());
+app.use(cookieParser());
 app.use('/', foodInfoRouter);
+app.use('/', oauthRotuer);
 
 // error handler should put as the last middleware
 app.use((err, _req, res, _next) => {
