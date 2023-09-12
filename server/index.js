@@ -6,6 +6,8 @@ const oauthRotuer = require('./routers/oauthRotuer');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const https = require('https');
+const fs = require('fs');
 
 app.use(cors());
 app.use(cookieParser());
@@ -27,6 +29,10 @@ app.use((err, _req, res, _next) => {
   res.status(statusCode).json({ message: err.message });
 });
 
-app.listen(port, () => {
-  console.log(`App is listening at port ${port}`);
+// https server
+https.createServer({
+  key: fs.readFileSync('../ssl/key.pem'),
+  cert: fs.readFileSync('../ssl/certificate.pem')
+}, app).listen(port, () => {
+  console.log(`Server is listening at port:${port}`);
 });
