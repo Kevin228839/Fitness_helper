@@ -15,10 +15,10 @@ const handleGoogleOauth = async (req, res, next) => {
     if (userData.verified_email) {
       // Signup if first time login
       await checkSignUp(userData);
-      const accessToken = jwt.sign({ type: 'google', google_id: userData.id }, process.env.jwt_private_key);
-      const infoToken = jwt.sign({ email: userData.email, status: 'login' }, process.env.jwt_private_key);
+      const accessToken = jwt.sign({ type: 'google', google_id: userData.id }, process.env.jwt_private_key, { expiresIn: '1h' });
+      const userInfo = jwt.sign({ picture: userData.picture, name: userData.name, email: userData.email }, process.env.jwt_private_key);
       res.cookie('jwt_access_fitness_helper', accessToken, { httpOnly: true, maxAge: 60 * 60 * 1000 }); // maxAge unit: millisecond
-      res.cookie('jwt_info_fitness_helper', infoToken, { maxAge: 60 * 60 * 1000 });
+      res.cookie('user_info_fitness_helper', userInfo);
       res.redirect(process.env.frontend_origin);
     } else {
       res.status(400).json({ message: 'OAuth: unverified email' });

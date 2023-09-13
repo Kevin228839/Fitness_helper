@@ -32,11 +32,11 @@ const Home = () => {
           {
             _.chunk(state.data.message, 4).map((row, index) => {
               return (
-                <Flex w="100%" h="250px" mb="40px" justify='space-between' key={index}>
+                <Flex w="1280px" h="250px" mb="40px" justify='left' key={index}>
                   {
                     row.map((item) => {
                       return (
-                        <Card w="275px" h="250px" key={item.food_id}>
+                        <Card w="280px" h="250px" ml="20px" mr="20px" key={item.food_id}>
                           <CardBody>
                             <Flex>
                               <Flex alignItems="center" w="200px">
@@ -86,8 +86,8 @@ const Home = () => {
                           </CardBody>
                         </Card>
                       );
-                    }
-                    )}
+                    })
+                  }
                 </Flex>
               );
             })
