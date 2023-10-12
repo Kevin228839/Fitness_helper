@@ -12,6 +12,7 @@
     },
     "rules": {
         "semi" : ["error", "always"],
-        "camelcase": ["off", "always"]
+        "camelcase": ["off", "always"],
+        "dot-notation": ["off", "always"]
     }
 }

@@ -2,4 +2,4 @@ import { createContext } from 'react';
 
 export const HomeContext = createContext();
 
-export const CookieContext = createContext();
+export const UserContext = createContext();

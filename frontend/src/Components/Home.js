@@ -1,20 +1,29 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useContext } from 'react';
+import { UserContext, HomeContext } from './Context';
 import { HOME_INIITIAL_STATE, HomeReducer } from './Reducer/HomeReducer';
-import { HomeContext } from './Context';
 import { Box, Flex, Center, Spinner, Card, CardBody, Heading, Text, Image } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import CalculateButton from './CalculateButton';
+import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import api from '../api';
 
 const Home = () => {
+  const userContext = useContext(UserContext);
   const [state, dispatch] = useReducer(HomeReducer, HOME_INIITIAL_STATE);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      let message = await api.getFoodList();
-      message = await message.json();
-      dispatch({ type: 'UPDATE_DATA', payload: message });
+      let data = await api.getFoodList();
+      const status = data.status;
+      if (status !== 200) {
+        userContext.userDispatch({ type: 'UPDATE_ERROR', payload: true });
+        navigate('/error');
+        return;
+      }
+      data = await data.json();
+      dispatch({ type: 'UPDATE_DATA', payload: data });
     };
     fetchData();
   }, []);

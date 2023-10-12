@@ -1,18 +1,26 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const rateLimiter = require('./rateLimit');
 const foodInfoRouter = require('./routers/foodInfoRouter');
 const oauthRotuer = require('./routers/oauthRotuer');
-const cors = require('cors');
+const userRouter = require('./routers/userRouter');
+// const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const https = require('https');
 const fs = require('fs');
 
-app.use(cors());
+// const corsOption = {
+//   origin: 'http://localhost:3000',
+//   credentials: true
+// };
+// app.use(cors(corsOption));
 app.use(cookieParser());
+app.use(rateLimiter);
 app.use('/', foodInfoRouter);
 app.use('/', oauthRotuer);
+app.use('/', userRouter);
 
 // for frontend url (after react build)
 app.use(express.static(path.join(__dirname, '../frontend/build')));
@@ -29,7 +37,8 @@ app.use((err, _req, res, _next) => {
   res.status(statusCode).json({ message: err.message });
 });
 
-// https server
+// app.listen(port, console.log(`Server is listening at port:${port}`));
+
 https.createServer({
   key: fs.readFileSync('../ssl/key.pem'),
   cert: fs.readFileSync('../ssl/certificate.pem')

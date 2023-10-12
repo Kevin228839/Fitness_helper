@@ -1,62 +1,40 @@
-import { useContext, useEffect, useState } from 'react';
-import { CookieContext } from './Context';
+import { Center, Spinner } from '@chakra-ui/react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from './Context';
 import { useNavigate } from 'react-router-dom';
-import { Center, Spinner, Avatar, Card, CardHeader, CardBody, Heading, Text, Box, Stack, StackDivider } from '@chakra-ui/react';
-import jwtDecode from 'jwt-decode';
+import api from '../api';
 
 const Profile = () => {
+  const userContext = useContext(UserContext);
+  const [data, setData] = useState(null);
   const navigate = useNavigate();
-  const cookieContext = useContext(CookieContext);
-  const cookies = cookieContext.cookieState.cookies;
-  const [loginStatus, setLoginStatus] = useState(false);
-
   useEffect(() => {
-    if (cookies.user_info_fitness_helper === undefined) {
-      navigate('/');
-    } else {
-      setLoginStatus(true);
-    }
+    const fetchData = async () => {
+      let data = await api.getProfile();
+      const status = data.status;
+      if (status !== 200) {
+        userContext.userDispatch({ type: 'UPDATE_ERROR', payload: true });
+        navigate('/error');
+        return;
+      }
+      data = await data.json();
+      setData(data);
+    };
+    fetchData();
   }, []);
-
-  if (loginStatus === false) {
+  if (data === null) {
     return (
-      <Center m="100px">
-        <Spinner size='xl' />
+      <Center mt='100px'>
+        <Spinner />
       </Center>
     );
-  } else {
-    return (
-      <Card mt="50px">
-        <Center>
-          <Avatar size="xl" src={jwtDecode(cookies.user_info_fitness_helper).picture}/>
-        </Center>
-        <CardHeader>
-          <Heading size='md'>Personal Information</Heading>
-        </CardHeader>
-
-        <CardBody>
-          <Stack divider={<StackDivider />} spacing='4'>
-            <Box>
-              <Heading size='xs' textTransform='uppercase'>
-                Name
-              </Heading>
-              <Text pt='2' fontSize='sm'>
-                {jwtDecode(cookies.user_info_fitness_helper).name}
-              </Text>
-            </Box>
-            <Box>
-              <Heading size='xs' textTransform='uppercase'>
-                Email
-              </Heading>
-              <Text pt='2' fontSize='sm'>
-              {jwtDecode(cookies.user_info_fitness_helper).email}
-              </Text>
-            </Box>
-          </Stack>
-        </CardBody>
-      </Card>
-    );
   }
+  return (
+    <Center flexDirection='column' mt='100px'>
+      <Center m='10px'>{data.data.email}</Center>
+      <Center m='10px'>{data.data.name}</Center>
+    </Center>
+  );
 };
 
 export default Profile;

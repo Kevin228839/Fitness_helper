@@ -15,19 +15,3 @@ export const getGoogleOAuthURL = () => {
   const searchParams = new URLSearchParams(params);
   return `${rootURL}?${searchParams.toString()}`;
 };
-
-export const cookieObject = () => {
-  const cookies = document.cookie;
-  let arr = cookies.split('; ');
-  arr = arr.map((element) => {
-    return element.split('=');
-  });
-  const obj = {};
-  arr.forEach((element) => {
-    const key = element[0];
-    const value = element[1];
-    obj[key] = value;
-  });
-
-  return obj;
-};

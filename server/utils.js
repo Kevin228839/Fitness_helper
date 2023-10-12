@@ -1,5 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
 const getGoogleOAuthToken = async (code) => {
   const url = 'https://oauth2.googleapis.com/token';
@@ -37,7 +38,17 @@ const getGoogleUser = async (id_token, access_token) => {
   }
 };
 
+const checkCookie = (token) => {
+  try {
+    const decode = jwt.verify(token, process.env.jwt_private_key);
+    return decode;
+  } catch (err) {
+    return undefined;
+  }
+};
+
 module.exports = {
   getGoogleOAuthToken,
-  getGoogleUser
+  getGoogleUser,
+  checkCookie
 };
