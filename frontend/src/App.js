@@ -16,13 +16,16 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await api.autoLogin();
+      let data = await api.autoLogin();
+      const status = data.status;
+      data = await data.json();
 
-      if (data.status === 200) {
-        dispatch({ type: 'UPDATE_LOGIN', payload: true });
-      }
-      if (data.status === 429) {
+      if (status !== 200) {
         dispatch({ type: 'UPDATE_ERROR', payload: true });
+      } else {
+        if (data.success === true) {
+          dispatch({ type: 'UPDATE_LOGIN', payload: true });
+        }
       }
       setLoading(false);
     };

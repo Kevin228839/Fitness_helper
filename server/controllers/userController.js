@@ -6,10 +6,10 @@ const autoLogin = (req, res, next) => {
   try {
     const userInfo = checkCookie(req.cookies[process.env.jwt_token_name]);
     if (userInfo === undefined) {
-      res.status(400).json({ message: 'Login fail' });
+      res.status(200).json({ success: false });
       return;
     }
-    res.status(200).json({ message: 'Login success' });
+    res.status(200).json({ success: true });
   } catch (err) {
     next(err);
   }

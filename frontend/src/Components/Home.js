@@ -14,6 +14,10 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (userContext.userState.error === true) {
+      navigate('/error');
+      return;
+    }
     const fetchData = async () => {
       let data = await api.getFoodList();
       const status = data.status;

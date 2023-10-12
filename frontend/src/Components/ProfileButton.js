@@ -1,5 +1,7 @@
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from './Context';
 import {
   Button,
   Menu,
@@ -9,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 const ProfileButton = () => {
+  const userContext = useContext(UserContext);
   const navigate = useNavigate();
   return (
     <Menu>
@@ -20,8 +23,15 @@ const ProfileButton = () => {
           navigate('/profile');
         }}>My Account</MenuItem>
         <MenuItem onClick={async () => {
-          await api.logout();
-          window.location.reload();
+          const data = await api.logout();
+          const status = data.status;
+          if (status === 200) {
+            userContext.userDispatch({ type: 'UPDATE_LOGIN', payload: false });
+            navigate('/');
+          } else {
+            userContext.userDispatch({ type: 'UPDATE_ERROR', payload: true });
+            navigate('/error');
+          }
         }}>Logout</MenuItem>
       </MenuList>
     </Menu>

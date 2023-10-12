@@ -9,6 +9,14 @@ const Profile = () => {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
+    if (userContext.userState.login === false) {
+      navigate('/');
+      return;
+    }
+    if (userContext.userState.error === true) {
+      navigate('/error');
+      return;
+    }
     const fetchData = async () => {
       let data = await api.getProfile();
       const status = data.status;
