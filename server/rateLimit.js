@@ -2,7 +2,10 @@ const Redis = require('ioredis');
 require('dotenv').config();
 
 const rateLimiter = async (req, res, next) => {
-  const redisClient = new Redis();
+  const redisClient = new Redis(
+    process.env.redis_host,
+    parseInt(process.env.redis_port)
+  );
   try {
     const ts = Math.floor(Date.now() / 1000);
     const clientInfo = await redisClient.hgetall(req.ip);

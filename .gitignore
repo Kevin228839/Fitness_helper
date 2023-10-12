@@ -1,4 +1,6 @@
 *.pem
-.env
+*.env
+*.conf
 node_modules
+build
 .DS_Store
