@@ -41,7 +41,7 @@ const Home = () => {
   } else {
     return (
       <>
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" pt="50px" pl="50px" pr="50px">
+        <Box display="flex" flexDirection="column" justifyContent="center" alignItems={{ base: 'left', xl: 'center' }} pt="50px" pl="50px" pr="50px">
           {
             _.chunk(state.data.message, 4).map((row, index) => {
               return (
@@ -105,10 +105,11 @@ const Home = () => {
               );
             })
           }
-        </Box>
+        {/* </Box> */}
         <HomeContext.Provider value={{ homeState: state, homeDispatch: dispatch }}>
           <CalculateButton />
         </HomeContext.Provider>
+        </Box>
       </>
     );
   }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from './Context';
 import {
+  Box,
   Button,
   Menu,
   MenuButton,
@@ -15,9 +16,11 @@ const ProfileButton = () => {
   const navigate = useNavigate();
   return (
     <Menu>
+      <Box width="100px">
       <MenuButton as={Button} colorScheme='blue'>
         Profile
       </MenuButton>
+      </Box>
       <MenuList>
         <MenuItem onClick={async () => {
           navigate('/profile');

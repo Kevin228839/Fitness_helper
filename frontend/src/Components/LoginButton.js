@@ -1,4 +1,4 @@
-import { Center, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
+import { Box, Center, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { getGoogleOAuthURL } from '../utils';
@@ -7,9 +7,11 @@ const LoginButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
+      <Box width="100px">
       <Button colorScheme='blue' onClick={onOpen}>
         Login
       </Button>
+      </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
