@@ -16,6 +16,7 @@ jobs:
             cd /home/ec2-user/fitness_helper &&
             git pull origin main &&
             docker-compose down &&
+            docker image rm fitnesshelper &&
             docker-compose up -d
           '
 
