@@ -9,7 +9,7 @@ const CalculateButton = () => {
     <Center w={{ base: '1280px', xl: '1380px' }} mb="50px">
       <Button onClick={onOpen} colorScheme="blue" size="lg">Calculate</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
+      <ModalOverlay/>
       <ModalContent>
         <ModalHeader color="#2C5282">Result</ModalHeader>
         <ModalBody>
