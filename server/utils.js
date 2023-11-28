@@ -47,8 +47,24 @@ const checkCookie = (token) => {
   }
 };
 
+const addressFoodInfo = (foodData) => {
+  const re = /^\d+(\.\d+)?$/;
+  if (re.test(foodData.carbonhydrate) && re.test(foodData.protein) && re.test(foodData.fat) && re.test(foodData.calory)) {
+    const data = {
+      name: foodData.name,
+      carbonhydrate: parseFloat(parseFloat(foodData.carbonhydrate).toFixed(1)),
+      protein: parseFloat(parseFloat(foodData.protein).toFixed(1)),
+      fat: parseFloat(parseFloat(foodData.fat).toFixed(1)),
+      calory: parseFloat(parseFloat(foodData.calory).toFixed(1))
+    };
+    return data;
+  }
+  return undefined;
+};
+
 module.exports = {
   getGoogleOAuthToken,
   getGoogleUser,
-  checkCookie
+  checkCookie,
+  addressFoodInfo
 };
