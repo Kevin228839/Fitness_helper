@@ -19,13 +19,10 @@ const App = () => {
       let data = await api.autoLogin();
       const status = data.status;
       data = await data.json();
-
-      if (status !== 200) {
+      if (status === 200) {
+        dispatch({ type: 'UPDATE_LOGIN', payload: true });
+      } else if (status !== 401) {
         dispatch({ type: 'UPDATE_ERROR', payload: true });
-      } else {
-        if (data.success === true) {
-          dispatch({ type: 'UPDATE_LOGIN', payload: true });
-        }
       }
       setLoading(false);
     };

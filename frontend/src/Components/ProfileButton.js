@@ -30,7 +30,7 @@ const ProfileButton = () => {
           const status = data.status;
           if (status === 200) {
             userContext.userDispatch({ type: 'UPDATE_LOGIN', payload: false });
-            navigate('/');
+            location.reload('/');
           } else {
             userContext.userDispatch({ type: 'UPDATE_ERROR', payload: true });
             navigate('/error');
