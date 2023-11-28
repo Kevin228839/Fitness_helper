@@ -39,27 +39,28 @@ const Home = () => {
       </Center>
     );
   } else {
+    const additionalArray = Array.from({ length: 4 - Object.keys(state.data.message).length % 4 });
     return (
       <>
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems={{ base: 'left', xl: 'center' }} pt="50px" pl="50px" pr="50px">
+        <Box display="flex" flexDirection="column" alignItems="center" pt="50px" pl="50px" pr="50px">
           {
             _.chunk(state.data.message, 4).map((row, index) => {
               return (
-                <Flex w="1280px" h="250px" mb="40px" justify='left' key={index}>
+                <Flex w={{ base: '100%', xl: '1400px' }} justifyContent='center' key={index}>
                   {
                     row.map((item) => {
                       return (
-                        <Card w="280px" h="250px" ml="20px" mr="20px" key={item.food_id}>
+                        <Card w="24%" m="0.5%" key={item.food_id}>
                           <CardBody>
                             <Flex>
-                              <Flex alignItems="center" w="200px">
-                                <Image width="70px" height="70px" src={item.image_url}/>
-                                <Text ml="55px" as="b" fontSize="xl">
-                                  {state.foodNumber[item.food_id] === undefined ? 0 : state.foodNumber[item.food_id]}
-                                </Text>
+                              <Flex alignItems="center" w="70%">
+                                <Image w="50%" src={item.image_url}/>
+                                <Center w="50%" as="b" fontSize={{ base: 'xs', lg: 'xl' }}>
+                                    {state.foodNumber[item.food_id] === undefined ? 0 : state.foodNumber[item.food_id]}
+                                </Center>
                               </Flex>
-                              <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                                <AddIcon cursor="pointer" boxSize="20px" mb="5px" onClick={() => {
+                              <Flex w="30%" flexDirection="column" alignItems="center" justifyContent="center">
+                                <AddIcon cursor="pointer" boxSize="40%" onClick={() => {
                                   const foodNumberPayload = state.foodNumber;
                                   const calculateResultPayload = state.calculateResult;
                                   if (foodNumberPayload[item.food_id] === undefined || (foodNumberPayload[item.food_id] !== undefined && foodNumberPayload[item.food_id] < 10)) {
@@ -76,7 +77,7 @@ const Home = () => {
                                     dispatch({ type: 'UPDATE_CALCULATERESULT', payload: calculateResultPayload });
                                   }
                                 }}/>
-                                <MinusIcon cursor="pointer" boxSize="20px" mt="5px" onClick={() => {
+                                <MinusIcon cursor="pointer" boxSize="40%" onClick={() => {
                                   const foodNumberPayload = state.foodNumber;
                                   const calculateResultPayload = state.calculateResult;
                                   if (foodNumberPayload[item.food_id] !== undefined && foodNumberPayload[item.food_id] > 0) {
@@ -89,15 +90,23 @@ const Home = () => {
                                     dispatch({ type: 'UPDATE_CALCULATERESULT', payload: calculateResultPayload });
                                   }
                                 }}/>
-                              </Box>
+                              </Flex>
                             </Flex>
-                            <Heading mt="15px" mb="5px" size="md">{item.food_name}</Heading>
-                                <Text>carbonhydrate : {item.carbonhydrate} g</Text>
-                                <Text>protein : {item.protein} g</Text>
-                                <Text>fat : {item.fat} g</Text>
-                                <Text>calory : {item.calory} kcal</Text>
+                            <Heading mt="5%" mb="5%" fontSize={{ base: 'xs', lg: 'xl' }}>{item.food_name}</Heading>
+                            <Text fontSize={{ base: 'xs', lg: 'xl' }}>carbonhydrate : {item.carbonhydrate} g</Text>
+                            <Text fontSize={{ base: 'xs', lg: 'xl' }}>protein : {item.protein} g</Text>
+                            <Text fontSize={{ base: 'xs', lg: 'xl' }}>fat : {item.fat} g</Text>
+                            <Text fontSize={{ base: 'xs', lg: 'xl' }}>calory : {item.calory} kcal</Text>
                           </CardBody>
                         </Card>
+                      );
+                    })
+                  }
+                  { row.length % 4 === 0
+                    ? <></>
+                    : additionalArray.map((element, key) => {
+                      return (
+                        <Box w="24%" m="0.5%" key={Object.keys(state.data.message).length + key}></Box>
                       );
                     })
                   }
@@ -105,7 +114,6 @@ const Home = () => {
               );
             })
           }
-        {/* </Box> */}
         <HomeContext.Provider value={{ homeState: state, homeDispatch: dispatch }}>
           <CalculateButton />
         </HomeContext.Provider>
