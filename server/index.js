@@ -18,6 +18,7 @@ const fs = require('fs');
 // app.use(cors(corsOption));
 app.use(cookieParser());
 app.use(rateLimiter);
+app.use(express.json());
 app.use('/', foodInfoRouter);
 app.use('/', oauthRotuer);
 app.use('/', userRouter);
@@ -34,7 +35,7 @@ app.use('/', function (_req, res, next) {
 app.use((err, _req, res, _next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message);
-  res.status(statusCode).json({ message: err.message });
+  res.status(statusCode).json({ message: 'Server error.' + err.message });
 });
 
 // app.listen(port, console.log(`Server is listening at port:${port}`));

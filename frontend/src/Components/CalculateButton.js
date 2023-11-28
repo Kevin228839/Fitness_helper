@@ -6,7 +6,7 @@ const CalculateButton = () => {
   const homeContext = useContext(HomeContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Center w="100%" mt="5%">
+    <Center w="100%" m="5%">
       <Button onClick={onOpen} colorScheme="blue" size="lg">Calculate</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay/>

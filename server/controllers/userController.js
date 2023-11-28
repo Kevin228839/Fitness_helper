@@ -6,10 +6,10 @@ const autoLogin = (req, res, next) => {
   try {
     const userInfo = checkCookie(req.cookies[process.env.jwt_token_name]);
     if (userInfo === undefined) {
-      res.status(200).json({ success: false });
+      res.status(401).json({ messsage: 'unauthorized' });
       return;
     }
-    res.status(200).json({ success: true });
+    res.status(200).json({ messsage: 'authorized' });
   } catch (err) {
     next(err);
   }
@@ -18,7 +18,7 @@ const autoLogin = (req, res, next) => {
 const logout = (_req, res, next) => {
   try {
     res.cookie(process.env.jwt_token_name, '', { maxAge: 0 });
-    res.status(200).json({ message: 'Logout Success.' });
+    res.status(200).json({ message: 'logout success' });
   } catch (err) {
     next(err);
   }
@@ -28,11 +28,11 @@ const userProfile = async (req, res, next) => {
   try {
     const userInfo = checkCookie(req.cookies[process.env.jwt_token_name]);
     if (userInfo === undefined) {
-      res.status(400).json({ message: 'Get Profile Fail' });
+      res.status(401).json({ messsage: 'unauthorized' });
       return;
     }
     const data = await getProfile(userInfo.userId);
-    res.status(200).json({ message: 'Get Profile Success', data });
+    res.status(200).json({ message: 'get user profile success', data });
   } catch (err) {
     next(err);
   }

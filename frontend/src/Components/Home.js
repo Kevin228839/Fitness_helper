@@ -21,13 +21,16 @@ const Home = () => {
     const fetchData = async () => {
       let data = await api.getFoodList();
       const status = data.status;
-      if (status !== 200) {
+      if (status === 200) {
+        data = await data.json();
+        dispatch({ type: 'UPDATE_DATA', payload: data });
+        if (!data.login) {
+          userContext.userDispatch({ type: 'UPDATE_LOGIN', payload: false });
+        }
+      } else {
         userContext.userDispatch({ type: 'UPDATE_ERROR', payload: true });
         navigate('/error');
-        return;
       }
-      data = await data.json();
-      dispatch({ type: 'UPDATE_DATA', payload: data });
     };
     fetchData();
   }, []);
@@ -42,7 +45,7 @@ const Home = () => {
     const additionalArray = Array.from({ length: 4 - Object.keys(state.data.message).length % 4 });
     return (
       <>
-        <Box display="flex" flexDirection="column" alignItems="center" pt="50px" pl="50px" pr="50px">
+        <Box display="flex" flexDirection="column" alignItems="center" p="2%">
           {
             _.chunk(state.data.message, 4).map((row, index) => {
               return (

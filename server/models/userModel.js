@@ -11,11 +11,10 @@ const signUp = async (type, userData) => {
       return data[0][0]['user_id'];
     } else {
       data = await conn.query('INSERT INTO user_info(account_type, email, name) VALUES (?, ?, ?)', ['google', userData.email, userData.name]);
-      await conn.query('COMMIT');
       return data[0]['insertId'];
     }
   } catch (err) {
-    await conn.query('ROLLBACK');
+    console.error('user sign up error');
     throw err;
   } finally {
     conn.release();
@@ -30,6 +29,9 @@ const getProfile = async (id) => {
       [id]
     );
     return data[0][0];
+  } catch (err) {
+    console.error('get profile error');
+    throw err;
   } finally {
     conn.release();
   }

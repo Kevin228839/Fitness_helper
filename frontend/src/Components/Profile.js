@@ -20,6 +20,11 @@ const Profile = () => {
     const fetchData = async () => {
       let data = await api.getProfile();
       const status = data.status;
+      if (status === 401) {
+        userContext.userDispatch({ type: 'UPDATE_LOGIN', payload: false });
+        navigate('/');
+        return;
+      }
       if (status !== 200) {
         userContext.userDispatch({ type: 'UPDATE_ERROR', payload: true });
         navigate('/error');
