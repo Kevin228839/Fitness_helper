@@ -7,9 +7,9 @@ const getFoodInfo = async (req, res, next) => {
     // [data, buf] => what query actually returns. We only need data here
     const [response] = await getFoodGeneralInfo(userInfo);
     if (userInfo) {
-      res.status(200).json({ login: true, message: response });
+      res.status(200).json({ login: true, data: response, message: 'get food list with customized food' });
     } else {
-      res.status(200).json({ login: false, message: response });
+      res.status(200).json({ login: false, data: response, message: 'get food list without customized food' });
     }
   } catch (err) {
     next(err);

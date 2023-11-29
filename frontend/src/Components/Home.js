@@ -4,6 +4,7 @@ import { HOME_INIITIAL_STATE, HomeReducer } from './Reducer/HomeReducer';
 import { Box, Flex, Center, Spinner, Card, CardBody, Heading, Text, Image } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import CalculateButton from './CalculateButton';
+import CreateFoodButton from './CreateFoodButton';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import api from '../api';
@@ -33,7 +34,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [userContext.userState.customizedFoodCount]);
 
   if (Object.keys(state.data).length === 0) {
     return (
@@ -42,12 +43,12 @@ const Home = () => {
       </Center>
     );
   } else {
-    const additionalArray = Array.from({ length: 4 - Object.keys(state.data.message).length % 4 });
+    const additionalArray = Array.from({ length: 4 - Object.keys(state.data.data).length % 4 });
     return (
       <>
         <Box display="flex" flexDirection="column" alignItems="center" p="2%">
           {
-            _.chunk(state.data.message, 4).map((row, index) => {
+            _.chunk(state.data.data, 4).map((row, index) => {
               return (
                 <Flex w={{ base: '100%', xl: '1400px' }} justifyContent='center' key={index}>
                   {
@@ -109,7 +110,7 @@ const Home = () => {
                     ? <></>
                     : additionalArray.map((element, key) => {
                       return (
-                        <Box w="24%" m="0.5%" key={Object.keys(state.data.message).length + key}></Box>
+                        <Box w="24%" m="0.5%" key={Object.keys(state.data.data).length + key}></Box>
                       );
                     })
                   }
@@ -118,7 +119,10 @@ const Home = () => {
             })
           }
         <HomeContext.Provider value={{ homeState: state, homeDispatch: dispatch }}>
+          <Center>
           <CalculateButton />
+          {userContext.userState.login === true ? <CreateFoodButton/> : <></>}
+          </Center>
         </HomeContext.Provider>
         </Box>
       </>

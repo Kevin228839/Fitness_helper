@@ -27,7 +27,6 @@ const getFoodGeneralInfo = async (userInfo) => {
 const addFoodInfo = async (userId, foodData) => {
   const conn = await pool.getConnection();
   try {
-    console.log(userId, foodData);
     await conn.query(
       'insert into food_info(food_name, carbonhydrate, protein, fat, calory, owner_id) values(?, ?, ?, ?, ?, ?)',
       [foodData.name, foodData.carbonhydrate, foodData.protein, foodData.fat, foodData.calory, userId]
