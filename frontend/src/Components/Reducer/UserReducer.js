@@ -1,6 +1,7 @@
 export const USER_INITIAL_STATE = {
   login: false,
-  error: false
+  error: false,
+  customizedFoodCount: 0
 };
 
 export const UserReducer = (state, action) => {
@@ -9,5 +10,7 @@ export const UserReducer = (state, action) => {
       return { ...state, login: action.payload };
     case 'UPDATE_ERROR':
       return { ...state, error: action.payload };
+    case 'UPDATE_CUSTOMIZEDFOODCOUNT':
+      return { ...state, customizedFoodCount: action.payload };
   }
 };

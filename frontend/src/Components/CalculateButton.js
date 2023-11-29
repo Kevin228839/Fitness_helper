@@ -1,4 +1,4 @@
-import { Center, Button, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody } from '@chakra-ui/react';
+import { Button, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { HomeContext } from './Context';
 
@@ -6,8 +6,8 @@ const CalculateButton = () => {
   const homeContext = useContext(HomeContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Center w="100%" m="5%">
-      <Button onClick={onOpen} colorScheme="blue" size="lg">Calculate</Button>
+    <>
+      <Button onClick={onOpen} colorScheme="blue" size="lg" w="100px" m="10px">Calculate</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay/>
       <ModalContent>
@@ -28,13 +28,13 @@ const CalculateButton = () => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={onClose}>
+          <Button colorScheme='blue' onClick={onClose}>
             Close
           </Button>
         </ModalFooter>
       </ModalContent>
       </Modal>
-    </Center>
+    </>
   );
 };
 

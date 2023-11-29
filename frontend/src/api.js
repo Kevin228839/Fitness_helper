@@ -7,6 +7,14 @@ const api = {
       credentials: 'include'
     });
   },
+  createFood: function (payload) {
+    return fetch(`${this.protocol}://${this.hostname}/api/v1/foodinfo/upload`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(payload)
+    });
+  },
   autoLogin: function () {
     return fetch(`${this.protocol}://${this.hostname}/api/v1/user/autologin`, {
       method: 'GET',
