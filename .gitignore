@@ -1,6 +1,7 @@
 *.pem
 *.env
 *.conf
+**/*.drawio
 node_modules
 build
 .DS_Store
